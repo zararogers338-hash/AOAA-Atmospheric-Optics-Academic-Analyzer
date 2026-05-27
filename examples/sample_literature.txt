@@ -1,0 +1,7 @@
+Title: Weak-Signal Detection in Atmospheric Remote Sensing
+Year: 2024
+Citations: 12
+Keywords: remote sensing, weak signal, spectral analysis, atmospheric optics, uncertainty
+
+Abstract:
+This example document discusses weak-signal detection, atmospheric optics, remote sensing, spectral analysis, uncertainty estimation, and visualization methods. It is intended as a small sample input for AOAA.

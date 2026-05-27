@@ -1,0 +1,48 @@
+language: zh
+
+analysis:
+  tfidf_top_k: 20
+  cooccurrence_window: 5
+  min_citation_count: 0
+  max_documents: 500
+  max_chars_per_doc: 500000
+  max_keywords: 200
+  chunk_size_mb: 10
+
+backends:
+  default: none
+  llama_cpp:
+    n_ctx: 32768
+    n_gpu_layers: -1
+    temperature: 0.7
+  ollama:
+    base_url: "http://localhost:11434"
+    max_models: 3
+    ensemble_strategy: vote
+  openai_compat:
+    base_url: ""
+    api_key: ""
+    model: ""
+    temperature: 0.7
+    timeout: 60
+    max_retries: 4
+    stream: false
+
+ensemble:
+  enabled: false
+  strategy: vote
+  fallback_chain:
+    - llama_cpp
+    - ollama
+    - openai_compat
+
+prompts:
+  strength: strong
+  custom_system_prompt: ""
+  custom_template: ""
+
+export:
+  formats:
+    - json
+    - txt
+    - svg

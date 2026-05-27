@@ -1,0 +1,8 @@
+PT J
+TI Atmospheric optics and weak signal detection in research visualization
+AU Example, A
+PY 2024
+TC 12
+DE atmospheric optics; weak signal; visualization; remote sensing
+AB This is a small Web of Science style example for parser testing.
+ER
