@@ -30,8 +30,7 @@ has_data = bool(analysis and analysis.get("tfidf", {}).get("global_top"))
 
 if not has_data:
     st.warning(t("no_data"))
-    st.info("👈 " + ("请在左侧上传文献文件并点击'开始加载'" if lang == "zh"
-                       else "Upload files in the sidebar and click 'Start Loading'"))
+    st.info("👈 " + t("overview_upload_hint"))
     st.stop()
 
 # ═══ Gauge Dashboard (top) ═══
@@ -82,7 +81,7 @@ with c2:
 
 # ═══ Original Charts (Matplotlib) ═══
 st.divider()
-st.subheader("📊 " + ("基础统计图表" if lang == "zh" else "Basic Statistical Charts"))
+st.subheader("📊 " + t("overview_basic_charts"))
 
 try:
     import matplotlib
@@ -183,7 +182,7 @@ except Exception as e:
 # ADVANCED VISUALIZATION SUITE
 # ═══════════════════════════════════════════════════════════════════
 st.divider()
-st.subheader("🚀 " + ("高级可视化分析中心" if lang == "zh" else "Advanced Visualization Center"))
+st.subheader("🚀 " + t("overview_advanced_center"))
 
 try:
     from utils.charts import (
@@ -211,7 +210,7 @@ try:
         })
 
     # ─── Row 1: Polar & Rose Charts ───
-    st.markdown("#### " + ("🌹 极坐标与玫瑰系列" if lang == "zh" else "🌹 Polar & Rose Series"))
+    st.markdown("#### " + ("🌹 " + t("overview_polar_series")))
     r1c1, r1c2 = st.columns(2)
 
     with r1c1:
@@ -224,7 +223,7 @@ try:
         render_plotly(fig, key="ov_srose")
 
     # ─── Row 2: Statistical Analysis ───
-    st.markdown("#### " + ("📈 统计分析系列" if lang == "zh" else "📈 Statistical Analysis Series"))
+    st.markdown("#### 📈 " + t("overview_stat_series"))
     r2c1, r2c2 = st.columns(2)
 
     with r2c1:
@@ -237,7 +236,7 @@ try:
         render_plotly(fig, key="ov_candle")
 
     # ─── Row 3: Network & Flow ───
-    st.markdown("#### " + ("🌊 网络与流向系列" if lang == "zh" else "🌊 Network & Flow Series"))
+    st.markdown("#### 🌊 " + t("overview_network_series"))
     r3c1, r3c2 = st.columns(2)
 
     with r3c1:
@@ -249,7 +248,7 @@ try:
         render_plotly(fig, key="ov_sankey")
 
     # ─── Row 4: Multi-Dimensional ───
-    st.markdown("#### " + ("🕸️ 多维分析系列" if lang == "zh" else "🕸️ Multi-Dimensional Series"))
+    st.markdown("#### 🕸️ " + t("overview_multidim_series"))
     r4c1, r4c2 = st.columns(2)
 
     with r4c1:
@@ -261,7 +260,7 @@ try:
         render_plotly(fig, key="ov_bubble")
 
     # ─── Row 5: Hierarchy & Territory ───
-    st.markdown("#### " + ("🌍 层级与领地系列" if lang == "zh" else "🌍 Hierarchy & Territory Series"))
+    st.markdown("#### 🌍 " + t("overview_hierarchy_series"))
     r5c1, r5c2 = st.columns(2)
 
     with r5c1:
@@ -275,7 +274,7 @@ try:
         render_plotly(fig, key="ov_sun")
 
     # ─── Row 6: Distribution Analysis ───
-    st.markdown("#### " + ("🎻 分布与堆积系列" if lang == "zh" else "🎻 Distribution & Stacking Series"))
+    st.markdown("#### 🎻 " + t("overview_dist_series"))
     r6c1, r6c2 = st.columns(2)
 
     with r6c1:
@@ -287,7 +286,7 @@ try:
         render_plotly(fig, key="ov_stacked")
 
     # ─── Row 7: Advanced Comparison ───
-    st.markdown("#### " + ("📐 高级比较系列" if lang == "zh" else "📐 Advanced Comparison Series"))
+    st.markdown("#### 📐 " + t("overview_compare_series"))
     r7c1, r7c2, r7c3 = st.columns(3)
 
     with r7c1:
@@ -303,7 +302,7 @@ try:
         render_plotly(fig, key="ov_wf")
 
     # ─── Row 8: 3D + Word Cloud ───
-    st.markdown("#### " + ("🏔️ 3D与词云系列" if lang == "zh" else "🏔️ 3D & Word Cloud Series"))
+    st.markdown("#### 🏔️ " + t("overview_3d_series"))
     r8c1, r8c2 = st.columns(2)
 
     with r8c1:
@@ -446,7 +445,7 @@ active = st.session_state.get("active_backend")
 ai_ok = active is not None and getattr(active, "is_loaded", False)
 
 if ai_ok:
-    gen_label = "⚡ 生成全局大气层分析" if lang == "zh" else "⚡ Generate Global Atmosphere Analysis"
+    gen_label = "⚡ " + t("overview_generate_btn")
     if st.button(gen_label, key="global_ai_btn", type="primary"):
         top_kws = [kw for kw, _ in analysis.get("tfidf", {}).get("global_top", [])[:10]]
         kw_str = ", ".join(top_kws)
@@ -490,7 +489,7 @@ if ai_ok:
         st.text_area(t("ai_analysis"), value=st.session_state["global_ai_result"],
                       height=400, key="gai_area")
     else:
-        st.info(t("ai_not_enabled") if not ai_ok else ("点击按钮生成分析" if lang == "zh" else "Click button to generate"))
+        st.info(t("ai_not_enabled") if not ai_ok else t("overview_click_to_gen"))
 else:
     st.info(t("ai_not_enabled"))
 

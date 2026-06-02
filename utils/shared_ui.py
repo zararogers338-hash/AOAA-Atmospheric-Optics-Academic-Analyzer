@@ -96,7 +96,7 @@ def _run_analysis(uploaded_files):
 
     with status_container:
         # Phase 1: Parse files
-        st.write(f"📄 {'解析文件...' if lang == 'zh' else 'Parsing files...'}")
+        st.write(f"📄 {t('parse_parsing_files')}")
         try:
             def update_parse_progress(pct):
                 progress_bar.progress(pct * 0.4, text=f"Parsing: {int(pct*100)}%")
@@ -121,7 +121,7 @@ def _run_analysis(uploaded_files):
         progress_bar.progress(0.4, text="Analyzing...")
 
         # Phase 2: NLP Analysis
-        st.write(f"🔬 {'运行 NLP 分析...' if lang == 'zh' else 'Running NLP analysis...'}")
+        st.write(f"🔬 {t('parse_running_nlp')}")
         try:
             analysis = run_full_analysis(results, config_analysis)
             st.session_state.analysis_data = analysis
@@ -136,7 +136,7 @@ def _run_analysis(uploaded_files):
         progress_bar.progress(0.7, text="Building graph...")
 
         # Phase 3: Graph & Atmosphere
-        st.write(f"🌐 {'构建图谱...' if lang == 'zh' else 'Building graph...'}")
+        st.write(f"🌐 {t('parse_building_graph')}")
         try:
             cooc_data = analysis.get("cooccurrence", {})
             G = build_cooccurrence_graph(cooc_data)
@@ -185,7 +185,7 @@ def render_shared_sidebar():
         )
 
         if uploaded:
-            st.info(f"{len(uploaded)} {'files selected' if lang == 'en' else '个文件已选择'}")
+            st.info(f"{len(uploaded)} {t('parse_files_selected')}")
 
         if st.button(f"🚀 {t('start_loading')}", key="start_loading_shared",
                       type="primary", disabled=not uploaded, use_container_width=True):
@@ -197,7 +197,7 @@ def render_shared_sidebar():
             ad = st.session_state.get("analysis_data", {})
             doc_n = ad.get("doc_count", 0)
             kw_n = len(ad.get("tfidf", {}).get("global_top", []))
-            st.success(f"{'已加载' if lang=='zh' else 'Loaded'}: {doc_n} docs, {kw_n} keywords")
+            st.success(f"{t('parse_loaded_status')}: {doc_n} docs, {kw_n} keywords")
 
         st.divider()
 
@@ -234,47 +234,35 @@ def render_shared_sidebar():
 def _render_custom_prompt_section():
     """Render custom prompt template section in sidebar."""
     lang = get_lang()
-    label = "自定义提示词" if lang == "zh" else "Custom Prompts"
-    st.subheader(f"✏️ {label}")
+    st.subheader(f"✏️ {t('prompt_section_title')}")
 
     # System prompt
-    sys_label = "系统提示词 (System Prompt)" if lang == "zh" else "System Prompt"
-    sys_help = ("自定义 AI 的角色设定和行为约束。留空则使用默认大气光学隐喻专家。"
-                if lang == "zh" else
-                "Customize AI role and behavior. Leave empty for default atmospheric optics metaphor expert.")
     sys_prompt = st.text_area(
-        sys_label, value=st.session_state.get("custom_system_prompt", ""),
-        height=80, key="custom_sys_prompt_input", help=sys_help,
-        placeholder="例: 你是一个专注于大气光学过程的学术分析专家..." if lang == "zh" else "e.g.: You are an expert in atmospheric optics academic analysis..."
+        t("prompt_system_label"), value=st.session_state.get("custom_system_prompt", ""),
+        height=80, key="custom_sys_prompt_input", help=t("prompt_system_help"),
+        placeholder=t("prompt_sys_placeholder")
     )
     st.session_state.custom_system_prompt = sys_prompt
 
     # Analysis prompt template
-    tpl_label = "分析提示词模板" if lang == "zh" else "Analysis Prompt Template"
-    tpl_help = ("用于生成隐喻分析的模板。可用变量: {phenomenon}, {description}, {keywords}, {doc_count}。"
-                if lang == "zh" else
-                "Template for metaphor analysis. Variables: {phenomenon}, {description}, {keywords}, {doc_count}.")
     tpl_prompt = st.text_area(
-        tpl_label, value=st.session_state.get("custom_prompt_template", ""),
-        height=80, key="custom_tpl_prompt_input", help=tpl_help,
-        placeholder=("请用大气光学隐喻分析 {phenomenon} 现象对应的学术方法: {keywords}"
-                      if lang == "zh" else
-                      "Analyze {phenomenon} phenomenon's academic methods using atmospheric optics metaphors: {keywords}")
+        t("prompt_template_label"), value=st.session_state.get("custom_prompt_template", ""),
+        height=80, key="custom_tpl_prompt_input", help=t("prompt_template_help"),
+        placeholder=t("prompt_tpl_placeholder")
     )
     st.session_state.custom_prompt_template = tpl_prompt
 
     # Prompt strength selector
-    strength_label = "提示词强度" if lang == "zh" else "Prompt Strength"
     strength = st.select_slider(
-        strength_label,
+        t("prompt_strength_label"),
         options=["light", "standard", "strong", "maximum"],
         value=st.session_state.get("prompt_strength", "strong"),
         key="prompt_strength_slider",
         format_func=lambda x: {
-            "light": "轻量" if lang == "zh" else "Light",
-            "standard": "标准" if lang == "zh" else "Standard",
-            "strong": "强劲" if lang == "zh" else "Strong",
-            "maximum": "极限" if lang == "zh" else "Maximum"
+            "light": t("prompt_strength_light"),
+            "standard": t("prompt_strength_standard"),
+            "strong": t("prompt_strength_strong"),
+            "maximum": t("prompt_strength_maximum")
         }.get(x, x)
     )
     st.session_state["prompt_strength"] = strength

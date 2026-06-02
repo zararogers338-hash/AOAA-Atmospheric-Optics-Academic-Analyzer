@@ -54,8 +54,9 @@ def _select_matching_keywords(analysis_data: Dict[str, Any], phenom_key: str, to
         elif metric == "cascade":
             final = edge_w * 0.5 + score
         elif metric == "observer_dependent":
-            # Use hash-based pseudo-random for reproducibility
-            hash_val = hash(kw) % 1000 / 1000.0
+            # Use stable hash (hashlib) instead of Python hash() which varies per process
+            import hashlib
+            hash_val = int(hashlib.md5(kw.encode("utf-8")).hexdigest(), 16) % 1000 / 1000.0
             final = score * 1.0 + hash_val * 0.3
         elif metric == "low_signal":
             final = (1.0 / max(score, 0.001)) * 0.01
@@ -72,9 +73,7 @@ def _generate_stat_metaphor(phenom_key: str, matched_kws: List[Dict], lang: str)
     """Generate statistical (non-AI) metaphor explanation — always available."""
     desc = t(f"{phenom_key}_desc")
     if not matched_kws:
-        if lang == "zh":
-            return f"📖 {desc}\n\n⚠️ 当前数据中未找到足够的关键词。请上传更多文献后重试。"
-        return f"📖 {desc}\n\n⚠️ Not enough keywords in current data. Upload more files and retry."
+        return f"📖 {desc}\n\n⚠️ {t('phenom_stat_fallback')}"
 
     top3 = [kw["keyword"] for kw in matched_kws[:3]]
     top3_str = ", ".join(top3)
@@ -113,7 +112,7 @@ def _render_advanced_charts(phenom_key: str, matched: List[Dict], analysis: Dict
 
     # ─── Section: Key Visualizations ───
     st.divider()
-    viz_title = "📊 " + ("高级可视化分析" if lang == "zh" else "Advanced Visualization Suite")
+    viz_title = "📊 " + t("phenom_advanced_viz")
     st.subheader(viz_title)
 
     tab_labels = [
@@ -160,7 +159,7 @@ def _render_advanced_charts(phenom_key: str, matched: List[Dict], analysis: Dict
 
     # ─── Second row of charts ───
     st.divider()
-    viz_title2 = "🔬 " + ("深度分析图表" if lang == "zh" else "Deep Analysis Charts")
+    viz_title2 = "🔬 " + t("phenom_deep_charts")
     st.subheader(viz_title2)
 
     tab_labels2 = [
@@ -210,7 +209,7 @@ def _render_advanced_charts(phenom_key: str, matched: List[Dict], analysis: Dict
 
     # ─── 3D Charts (full width) ───
     st.divider()
-    viz_title3 = "🏔️ " + ("3D 可视化" if lang == "zh" else "3D Visualization")
+    viz_title3 = "🏔️ " + t("phenom_3d_viz")
     st.subheader(viz_title3)
 
     col3d_1, col3d_2 = st.columns(2)
@@ -259,24 +258,22 @@ def render_phenomenon_page(phenom_key: str):
     col1, col2 = st.columns([3, 2])
 
     with col1:
-        kw_header = "🎯 匹配关键词" if lang == "zh" else "🎯 Matched Keywords"
-        st.subheader(kw_header)
+        st.subheader("🎯 " + t("phenom_matched_keywords"))
         if matched:
             import pandas as pd
             df = pd.DataFrame(matched)
             df.columns = [
-                "关键词" if lang == "zh" else "Keyword",
+                t("search") if "Keyword" in t("search") else ("关键词" if lang == "zh" else "Keyword"),
                 "TF-IDF",
-                "匹配得分" if lang == "zh" else "Match Score",
-                "共现连接" if lang == "zh" else "Connections"
+                ("匹配得分" if lang == "zh" else "Match Score"),
+                ("共现连接" if lang == "zh" else "Connections")
             ]
             st.dataframe(df, use_container_width=True, height=400)
         else:
-            st.info("No matching keywords found" if lang == "en" else "未找到匹配关键词")
+            st.info(t("phenom_no_match"))
 
     with col2:
-        chart_header = "📊 " + ("匹配分布" if lang == "zh" else "Match Distribution")
-        st.subheader(chart_header)
+        st.subheader("📊 " + t("phenom_match_dist"))
         try:
             import matplotlib
             matplotlib.use("Agg")
@@ -323,7 +320,7 @@ def render_phenomenon_page(phenom_key: str):
     ai_ok = active is not None and getattr(active, "is_loaded", False)
 
     if ai_ok:
-        gen_label = "⚡ 生成 AI 隐喻分析" if lang == "zh" else "⚡ Generate AI Metaphor Analysis"
+        gen_label = "⚡ " + t("phenom_generate_btn")
         if st.button(gen_label, key=f"ai_gen_{phenom_key}", type="primary"):
             with st.spinner(t("ai_generating")):
                 from utils.shared_ui import get_ai_prompt
@@ -347,7 +344,7 @@ def render_phenomenon_page(phenom_key: str):
         strength = st.session_state.get("prompt_strength", "strong")
         strength_map = {"light": "🟢", "standard": "🟡", "strong": "🟠", "maximum": "🔴"}
         st.caption(f"Prompt: {strength_map.get(strength, '?')} {strength} | "
-                   f"{'自定义模板' if st.session_state.get('custom_prompt_template') else '默认模板'}")
+                   f"{t('phenom_custom_template') if st.session_state.get('custom_prompt_template') else t('phenom_default_template')}")
     else:
         st.info(t("ai_not_enabled"))
         st.text_area(ai_title, value=stat_text, height=300,

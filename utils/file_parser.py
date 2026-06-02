@@ -259,15 +259,18 @@ def parse_wos(data: bytes, filename: str) -> Dict[str, Any]:
     current_field = None
 
     for line in text_str.split("\n"):
-        if len(line) >= 3 and line[2] == " " and line[:2].strip().isalpha():
-            current_field = line[:2].strip()
-            value = line[3:].strip()
-            if current_field == "ER":
+        # Match WOS tagged format: two-letter tag + space, or "ER" (end-of-record, 2 chars)
+        is_tagged = (len(line) >= 3 and line[2] == " " and line[:2].strip().isalpha())
+        is_er = (line.strip() == "ER" and len(line.strip()) == 2)
+        if is_tagged or is_er:
+            if is_er:
                 if current:
                     records.append(current)
                 current = {}
                 current_field = None
             else:
+                current_field = line[:2].strip()
+                value = line[3:].strip()
                 if current_field in current:
                     current[current_field] += "; " + value
                 else:

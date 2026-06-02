@@ -128,6 +128,81 @@ _DICT = {
     "node_label_toggle": {"zh": "显示节点名称", "en": "Show Node Labels"},
     "node_label_help": {"zh": "全局开关：显示/隐藏图表中的节点名称。开启后优先显示大节点和重要节点的名称，鼠标悬停始终可查看。",
                          "en": "Global toggle: show/hide node labels in charts. When enabled, prioritizes showing labels for large/important nodes. Hover always reveals labels."},
+
+    # Home page
+    "home_welcome_title": {"zh": "欢迎使用大气光学学术分析器", "en": "Welcome to AOAA"},
+    "home_quick_start": {"zh": "快速开始", "en": "Quick Start"},
+    "home_step1": {"zh": "上传文献 → 在左侧边栏上传 TXT/PDF/CSV/WOS 等格式的学术文献", "en": "Upload Files → Upload academic literature in TXT/PDF/CSV/WOS etc. in the sidebar"},
+    "home_step2": {"zh": "点击加载 → 点击「开始加载」按钮，系统自动解析并分析", "en": "Start Loading → Click \"Start Loading\" for automatic parsing and analysis"},
+    "home_step3": {"zh": "浏览页面 → 在左侧导航选择不同的大气现象分析页面", "en": "Browse Pages → Navigate to different atmospheric phenomenon pages"},
+    "home_step4": {"zh": "AI 分析（可选）→ 配置模型后端获取 AI 隐喻解读", "en": "AI Analysis (optional) → Configure a model backend for AI metaphor interpretations"},
+    "home_phenomena_title": {"zh": "9 大大气光学现象", "en": "9 Atmospheric Optical Phenomena"},
+    "home_ai_title": {"zh": "AI 后端支持", "en": "AI Backend Support"},
+    "home_ai_llama": {"zh": "llama-cpp-python — 本地 GGUF 模型，支持 GPU 加速", "en": "llama-cpp-python — Local GGUF models with GPU acceleration"},
+    "home_ai_ollama": {"zh": "Ollama — 本地模型管理，支持拉取/加载/多模型 Ensemble", "en": "Ollama — Local model management with pull/load/ensemble"},
+    "home_ai_openai": {"zh": "OpenAI 兼容 API — 任何兼容 API（含国产大模型）", "en": "OpenAI Compatible API — Any compatible API"},
+    "home_ai_note": {"zh": "无模型时，统计分析与可视化仍完整可用。", "en": "Statistics and visualizations work fully without any AI model."},
+    "home_prompt_title": {"zh": "自定义提示词", "en": "Custom Prompts"},
+    "home_prompt_desc": {"zh": "在左侧「自定义提示词」区域可以设置系统提示词、分析模板和提示词强度。", "en": "In the sidebar \"Custom Prompts\" section you can set system prompts, analysis templates and prompt strength."},
+    "home_data_loaded": {"zh": "数据已加载：{doc_n} 篇文献 | {kw_n} 个关键词 | {edge_n} 条共现关系", "en": "Data loaded: {doc_n} documents | {kw_n} keywords | {edge_n} co-occurrence edges"},
+    "home_nav_hint": {"zh": "点击左侧导航栏选择分析页面", "en": "Use the sidebar navigation to explore analysis pages"},
+
+    # Overview
+    "overview_basic_charts": {"zh": "基础统计图表", "en": "Basic Statistical Charts"},
+    "overview_advanced_center": {"zh": "高级可视化分析中心", "en": "Advanced Visualization Center"},
+    "overview_polar_series": {"zh": "极坐标与玫瑰系列", "en": "Polar & Rose Series"},
+    "overview_stat_series": {"zh": "统计分析系列", "en": "Statistical Analysis Series"},
+    "overview_network_series": {"zh": "网络与流向系列", "en": "Network & Flow Series"},
+    "overview_multidim_series": {"zh": "多维分析系列", "en": "Multi-Dimensional Series"},
+    "overview_hierarchy_series": {"zh": "层级与领地系列", "en": "Hierarchy & Territory Series"},
+    "overview_dist_series": {"zh": "分布与堆积系列", "en": "Distribution & Stacking Series"},
+    "overview_compare_series": {"zh": "高级比较系列", "en": "Advanced Comparison Series"},
+    "overview_3d_series": {"zh": "3D与词云系列", "en": "3D & Word Cloud Series"},
+    "overview_generate_btn": {"zh": "生成全局大气层分析", "en": "Generate Global Atmosphere Analysis"},
+    "overview_click_to_gen": {"zh": "点击按钮生成分析", "en": "Click button to generate"},
+    "overview_upload_hint": {"zh": "请在左侧上传文献文件并点击'开始加载'", "en": "Upload files in the sidebar and click 'Start Loading'"},
+
+    # Phenomenon base
+    "phenom_advanced_viz": {"zh": "高级可视化分析", "en": "Advanced Visualization Suite"},
+    "phenom_deep_charts": {"zh": "深度分析图表", "en": "Deep Analysis Charts"},
+    "phenom_3d_viz": {"zh": "3D 可视化", "en": "3D Visualization"},
+    "phenom_matched_keywords": {"zh": "匹配关键词", "en": "Matched Keywords"},
+    "phenom_match_dist": {"zh": "匹配分布", "en": "Match Distribution"},
+    "phenom_no_match": {"zh": "未找到匹配关键词", "en": "No matching keywords found"},
+    "phenom_generate_btn": {"zh": "生成 AI 隐喻分析", "en": "Generate AI Metaphor Analysis"},
+    "phenom_default_template": {"zh": "默认模板", "en": "Default Template"},
+    "phenom_custom_template": {"zh": "自定义模板", "en": "Custom Template"},
+    "phenom_stat_fallback": {"zh": "当前数据中未找到足够的关键词。请上传更多文献后重试。", "en": "Not enough keywords in current data. Upload more files and retry."},
+
+    # Parser messages
+    "parse_parsing_files": {"zh": "解析文件...", "en": "Parsing files..."},
+    "parse_running_nlp": {"zh": "运行 NLP 分析...", "en": "Running NLP analysis..."},
+    "parse_building_graph": {"zh": "构建图谱...", "en": "Building graph..."},
+    "parse_files_selected": {"zh": "个文件已选择", "en": "files selected"},
+    "parse_loaded_status": {"zh": "已加载", "en": "Loaded"},
+
+    # Charts
+    "chart_insufficient": {"zh": "数据不足，无法生成此图表", "en": "Insufficient data for this chart"},
+    "chart_render_error": {"zh": "图表渲染错误", "en": "Chart render error"},
+
+    # Exports
+    "export_json": {"zh": "导出 JSON", "en": "Export JSON"},
+    "export_txt": {"zh": "导出 TXT", "en": "Export TXT"},
+    "export_report_title": {"zh": "AOAA - 大气光学学术分析报告", "en": "AOAA - Atmospheric Optics Academic Analysis Report"},
+
+    # Prompt section
+    "prompt_section_title": {"zh": "自定义提示词", "en": "Custom Prompts"},
+    "prompt_system_label": {"zh": "系统提示词 (System Prompt)", "en": "System Prompt"},
+    "prompt_system_help": {"zh": "自定义 AI 的角色设定和行为约束。留空则使用默认大气光学隐喻专家。", "en": "Customize AI role and behavior. Leave empty for default atmospheric optics metaphor expert."},
+    "prompt_template_label": {"zh": "分析提示词模板", "en": "Analysis Prompt Template"},
+    "prompt_template_help": {"zh": "用于生成隐喻分析的模板。可用变量: {phenomenon}, {description}, {keywords}, {doc_count}。", "en": "Template for metaphor analysis. Variables: {phenomenon}, {description}, {keywords}, {doc_count}."},
+    "prompt_strength_label": {"zh": "提示词强度", "en": "Prompt Strength"},
+    "prompt_strength_light": {"zh": "轻量", "en": "Light"},
+    "prompt_strength_standard": {"zh": "标准", "en": "Standard"},
+    "prompt_strength_strong": {"zh": "强劲", "en": "Strong"},
+    "prompt_strength_maximum": {"zh": "极限", "en": "Maximum"},
+    "prompt_sys_placeholder": {"zh": "例: 你是一个专注于大气光学过程的学术分析专家...", "en": "e.g.: You are an expert in atmospheric optics academic analysis..."},
+    "prompt_tpl_placeholder": {"zh": "请用大气光学隐喻分析 {phenomenon} 现象对应的学术方法: {keywords}", "en": "Analyze {phenomenon} phenomenon's academic methods using atmospheric optics metaphors: {keywords}"},
 }
 
 
